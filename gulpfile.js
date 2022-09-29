@@ -225,9 +225,9 @@ async function core() {
         minify: production,
         banner: { js: banner },
         target: ['es2015'],
-        sourcemap: true,
+        sourcemap: false,
         outfile: 'dist/luckysheet.umd.js',
-      })
+    })
 }
 
 // According to the build tag in html, package js and css
@@ -293,9 +293,27 @@ function copyStaticCssImages(){
     return src(paths.staticCssImages)
         .pipe(dest(paths.destStaticCssImages));
 }
+const Base64 = require('gulp-css-base64');
+function fontToBase64() {
+    return src('dist/plugins/plugins.css')
+        .pipe(Base64({
+            maxWeightResource: 9999999
+        }))
+        .pipe(dest('dist/plugins'));
+}
+function cssToBase64() {
+    return src('dist/css/*.css')
+        .pipe(Base64({
+            maxWeightResource: 9999999
+        }))
+        .pipe(dest('dist/css'));
+}
+function cleanFonts() {
+   return del(['dist/fonts']);
+}
 
-const dev = series(clean, parallel(pluginsCss, plugins, css, pluginsJs, copyStaticHtml, copyStaticFonts, copyStaticAssets, copyStaticImages, copyStaticExpendPlugins, copyStaticDemoData, copyStaticCssImages, core), watcher, serve);
-const build = series(clean, parallel(pluginsCss, plugins, css, pluginsJs, copyStaticHtml, copyStaticFonts, copyStaticAssets, copyStaticImages, copyStaticExpendPlugins, copyStaticDemoData, copyStaticCssImages, core));
+const dev = series(clean, parallel(pluginsCss, plugins, css, pluginsJs, copyStaticHtml, copyStaticFonts, copyStaticAssets, copyStaticImages, copyStaticExpendPlugins, copyStaticDemoData, copyStaticCssImages, core),fontToBase64, cssToBase64, cleanFonts, watcher, serve);
+const build = series(clean, parallel(pluginsCss, plugins, css, pluginsJs, copyStaticHtml, copyStaticFonts, copyStaticAssets, copyStaticImages, copyStaticExpendPlugins, copyStaticDemoData, copyStaticCssImages , core), fontToBase64, cssToBase64, cleanFonts);
 
 exports.dev = dev;
 exports.build = build;
