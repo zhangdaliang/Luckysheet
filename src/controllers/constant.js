@@ -298,6 +298,9 @@ function rightclickHTML(){
         ).join("");
 
     const rightclickContainer =  `<div id="luckysheet-rightclick-menu" class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-mousedown-cancel">
+                <div id="luckysheet-setting-auth" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel" data-clipboard-action="copy" style="display:block">
+                    <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">分配权限</div>
+                </div>
                 <div id="luckysheet-copy-btn" class="luckysheet-cols-menuitem luckysheet-mousedown-cancel luckysheet-copy-btn" data-clipboard-action="copy" data-clipboard-target="#luckysheet-copy-content" style="display:${config.copy ? 'block' : 'none'};">
                     <div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel">${rightclick.copy}</div>
                 </div>

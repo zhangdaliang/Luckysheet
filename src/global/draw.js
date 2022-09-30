@@ -1260,9 +1260,9 @@ let nullCellRender = function(r, c, start_r, start_c, end_r, end_c,luckysheetTab
             (end_c + offsetLeft - 1), 
             (end_r + offsetTop - 2 + bodrder05)
         );
-        luckysheetTableContent.lineWidth = 1;
-
-        luckysheetTableContent.strokeStyle = luckysheetdefaultstyle.strokeStyle;        
+        luckysheetTableContent.lineWidth = 2;
+        let cell = Store.flowdata[r][c] || {};
+        luckysheetTableContent.strokeStyle = cell.auth? 'green' : luckysheetdefaultstyle.strokeStyle;        
         luckysheetTableContent.stroke();
         luckysheetTableContent.closePath();
     }
@@ -1799,8 +1799,8 @@ let cellRender = function(r, c, start_r, start_c, end_r, end_c, value, luckyshee
             (end_c + offsetLeft - 1), 
             (end_r + offsetTop - 2 + bodrder05)
         );
-        luckysheetTableContent.lineWidth = 1;
-        luckysheetTableContent.strokeStyle = luckysheetdefaultstyle.strokeStyle;
+        luckysheetTableContent.lineWidth = 2;
+        luckysheetTableContent.strokeStyle = cell.auth? 'green' : luckysheetdefaultstyle.strokeStyle;
         luckysheetTableContent.stroke();
         luckysheetTableContent.closePath();
     }

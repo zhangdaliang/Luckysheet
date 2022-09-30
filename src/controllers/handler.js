@@ -4539,6 +4539,20 @@ export default function luckysheetHandler() {
     $("#luckysheet-bottom-return-top").on("click", function (e) {
         $("#luckysheet-scrollbar-y").scrollTop(0);
     });
+    
+    // 分配权限
+    $("#luckysheet-setting-auth").on('click', function () {
+        $(this).parent().hide();
+        Store.luckysheet_function['$byAuthSetting'].f(JSON.parse(Store.luckysheet_select_save_previous))
+        try {
+            let row = Store.luckysheet_select_save[0].row_focus
+            let column = Store.luckysheet_select_save[0].column_focus
+            Store.luckysheet_select_save = [{row: [row, row], column: [column, column]}]
+            selectHightlightShow()
+        } catch (error) {
+            
+        }
+    })
 
     //右键菜单 复制按钮
     $("#luckysheet-copy-btn, #luckysheet-cols-copy-btn, #luckysheet-paste-btn-title").click(function (event) {
